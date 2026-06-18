@@ -21,6 +21,16 @@ func (l *Library) ListBook() []Book {
 	return l.books
 }
 
+func (l *Library) FindBookByID(id int) (Book, bool) {
+
+	for _, book := range l.books {
+		if book.ID == id {
+			return book, true
+		}
+	}
+	return Book{}, false
+}
+
 func main() {
 
 	manager := Library{}
@@ -79,4 +89,17 @@ func main() {
 		)
 	}
 
+	fmt.Println("*************************************************")
+
+	book, foundFind := manager.FindBookByID(2)
+	if !foundFind {
+		fmt.Println("Não existe livro para esse ID")
+	} else {
+		fmt.Printf("ID: %d\n Titile: %s\n Author: %s\n Avalaible: %t\n",
+			book.ID,
+			book.Title,
+			book.Author,
+			book.Available,
+		)
+	}
 }
